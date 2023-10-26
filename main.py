@@ -38,7 +38,7 @@ def levelEasy(event):
     canvas.create_image(680, 352,  image=game_play)
     canvas.create_image(200, 220, image=btn_back, tags="startgame")
 
-    winsound.PlaySound("sounds/play.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
+    # winsound.PlaySound("sounds/music_game1.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
 
 # -------level2------
 def levelMedium(event):
@@ -61,7 +61,7 @@ def showLevel(event):
 
     canvas.create_text(1020, 445, text="Level3",tags="level3", fill='red', font=('Halloween Slime (PERSONAL USE)', 50 ,'bold'))
 
-    winsound.PlaySound("sounds/for_level.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
+    winsound.PlaySound("sounds/music_game1.wav",winsound.SND_FILENAME | winsound.SND_ASYNC)
 
 # ----------------Exit-------------------
 def gameExit(event):
