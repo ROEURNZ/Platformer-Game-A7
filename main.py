@@ -5,10 +5,10 @@ from tkinter.ttk import *
 
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 700
-root = tk.Tk()
-root.geometry(str(SCREEN_WIDTH)+"x"+str(SCREEN_HEIGHT))
-root.title('Group 13 - Game Pro')
-canvas = tk.Canvas(root,bg="black")
+window = tk.Tk()
+window.geometry(str(SCREEN_WIDTH)+"x"+str(SCREEN_HEIGHT))
+window.title('Mr. Indicredible Destiny')
+canvas = tk.Canvas(window,bg="black")
 
 # creates a Tk() object
 keyPressed = []
@@ -48,7 +48,7 @@ btn_back = tk.PhotoImage(file="images/btn_back1.png")
 help_image = tk.PhotoImage(file="images/help_game5.png")
 title_game = tk.PhotoImage(file="images/text_main.png")
 
-img_player = tk.PhotoImage(file="images/power_man.png")
+img_player = tk.PhotoImage(file="images/man.png")
 player = canvas.create_image(100, 100, image=img_player)
 imge7 = tk.PhotoImage(file="images/land.png")
 # ---------------show_game_back---------------
@@ -93,7 +93,7 @@ def showLevel(event):
 
 # ----------------Exit-------------------
 def gameExit(event):
-    root.destroy()
+    window.destroy()
 
 # ------------------help-------------------
 def gameHelp(event):
@@ -115,13 +115,13 @@ winsound.PlaySound("sounds/start.wav",winsound.SND_FILENAME | winsound.SND_ASYNC
 def opennewWindow(): 
         WIN_WIDTH = 1920
         WIN_HEIGHT = 1080
-        root.withdraw()
-        newWindow = tk.Toplevel(root)
+        window.withdraw()
+        newWindow = tk.Toplevel(window)
         # sets the title of the
         # Toplevel widget
         newWindow.title("New Window")
         # sets the geometry of toplevel
-        newWindow.geometry(root.geometry(str(WIN_WIDTH) + "x" + str(WIN_HEIGHT)))
+        newWindow.geometry(window.geometry(str(WIN_WIDTH) + "x" + str(WIN_HEIGHT)))
         frame = tk.Frame(newWindow,height=1920,width=1080)
         frame.pack()
         canvas = tk.Canvas(frame, width=1920, height=1080)
@@ -130,7 +130,7 @@ def opennewWindow():
         background_img1 = canvas.create_image(650, 300, image=background)
         background_img2 = canvas.create_image(WIN_WIDTH, 300, image=background)
         
-        imgae_player = tk.PhotoImage(file="images/character.png")
+        imgae_player = tk.PhotoImage(file="images/man.png")
         player = canvas.create_image(400, 300, image=imgae_player)
         # land = canvas.create_rectangle(0, 500, 1536, 800, fill="Blue", tags="wall")
         image7 = tk.PhotoImage(file="images/land.png")
@@ -224,7 +224,7 @@ def opennewWindow():
                 canvas.move(background_img2, +2, 0)
                 get_coin()
             elif "Right" in keyPressed:
-                x = 20  # Increase the value to speed up movement to the right
+                x = 15  # Increase the value to speed up movement to the right
                 canvas.move(background_img1, -2, 0)
                 canvas.move(background_img2, -2, 0)
                 get_coin()
@@ -241,13 +241,8 @@ def opennewWindow():
             if not is_jumping:
                 apply_gravity()
 
-            root.after(20, move_player)
+            window.after(20, move_player)
 
-
-
-            # if random.random() < 0.05:
-            #     obstacle =create_obstacles()
-            #     obstacles.append(obstacle)
 
         def check_movement(item, dx=0, dy=0):
             item_coords = canvas.coords(item)
@@ -312,7 +307,7 @@ canvas.tag_bind("level1","<Button-1>", levelHard)
 canvas.pack(expand=True, fill='both')
 
 
-root.mainloop()
+window.mainloop()
 
 
 
