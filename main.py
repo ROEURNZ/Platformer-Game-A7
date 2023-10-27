@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import *
 import winsound
-from random import randrange
-import random
 from tkinter.ttk import *
 
 SCREEN_WIDTH = 1400
@@ -21,6 +19,7 @@ distance = 0
 collected_coins = 0
 scroll_offset = 0
 obstacles = []
+all_coins = []
 WIN_WIDTH = 1920
 canvas_width = 1920
 game_over = False
@@ -129,8 +128,9 @@ def opennewWindow():
         canvas.pack()
         background  = tk.PhotoImage(file="images/bg_show1.png")
         background_img1 = canvas.create_image(650, 300, image=background)
-        background_img2 = canvas.create_image(WIN_WIDTH, 0, image=background)
-        imgae_player = tk.PhotoImage(file="images/power_man.png")
+        background_img2 = canvas.create_image(WIN_WIDTH, 300, image=background)
+        
+        imgae_player = tk.PhotoImage(file="images/character.png")
         player = canvas.create_image(400, 300, image=imgae_player)
         # land = canvas.create_rectangle(0, 500, 1536, 800, fill="Blue", tags="wall")
         image7 = tk.PhotoImage(file="images/land.png")
@@ -183,7 +183,21 @@ def opennewWindow():
                 canvas.create_image(2380, 468, image=coin_image, tags="coin")
             ]
             for coin in coins:
-                obstacles.append(coin)
+                all_coins.append(coin)
+        def get_coin():
+            for coin in all_coins:
+                coin_coords = canvas.coords(coin)
+                cx1 = coin_coords[0] + 0
+                cx2 = coin_coords[0] + 50
+                cy1 = coin_coords[1] - 50
+                cy2 = coin_coords[1] - 50
+                # player_coords = canvas.coords(player)
+                cash = canvas.find_overlapping(cx1,cy1,cx2,cy2)
+                if player in cash:
+                    canvas.delete(coin)
+                    all_coins.remove(coin)
+          
+
 
         def handle_key_press(event):
             global is_jumping, jump_count
@@ -206,9 +220,14 @@ def opennewWindow():
             x, y = 0, 0
             if "Left" in keyPressed:
                 x = -20  # Increase the value to speed up movement to the left
+                canvas.move(background_img1, +2, 0)
+                canvas.move(background_img2, +2, 0)
+                get_coin()
             elif "Right" in keyPressed:
                 x = 20  # Increase the value to speed up movement to the right
-
+                canvas.move(background_img1, -2, 0)
+                canvas.move(background_img2, -2, 0)
+                get_coin()
             if is_jumping:
                 y = -GRAVITY_FORCE
                 jump_count -= 1
@@ -261,15 +280,20 @@ def opennewWindow():
                 canvas.move(player, -10, 0)
                 for obstacle in obstacles:
                     canvas.move(obstacle, -10, 0)
+                for coin in all_coins:
+                    canvas.move(coin, -10, 0)
 
             elif x_direction < 0 and x1 <= scroll_offset:
                 scroll_offset -= 40
                 canvas.move(player, 10, 0)
                 for obstacle in obstacles:
                     canvas.move(obstacle, 10, 0)
-
-
+                for coin in all_coins:
+                    canvas.move(coin, 10, 0)
+        
+        get_coin()
         game()
+        get_coin()
         move_player()
         newWindow.mainloop()    
 
@@ -289,3 +313,41 @@ canvas.pack(expand=True, fill='both')
 
 
 root.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
